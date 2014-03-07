@@ -268,3 +268,33 @@ describe 'function declaration', ->
             leave - FunctionDeclaration
         """
 
+describe 'imports', ->
+    it 'traverse', ->
+        tree = {
+          "type": "ImportDeclaration",
+          "specifiers": [{
+            "type": "ImportSpecifier",
+            "id": {
+              "type": "Identifier",
+              "name": "odd"
+            },
+            "name": null
+          }],
+          "kind": "default",
+          "source": {
+            "type": "Literal",
+            "value": ".\/b",
+            "raw": "'.\/b'"
+          }
+        }
+
+        expect(Dumper.dump(tree)).to.be.equal """
+            enter - ImportDeclaration
+            enter - ImportSpecifier
+            enter - Identifier
+            leave - Identifier
+            leave - ImportSpecifier
+            enter - Literal
+            leave - Literal
+            leave - ImportDeclaration
+        """

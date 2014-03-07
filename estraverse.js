@@ -66,6 +66,8 @@
         DirectiveStatement: 'DirectiveStatement',
         DoWhileStatement: 'DoWhileStatement',
         EmptyStatement: 'EmptyStatement',
+        ExportStatement: 'ExportStatement',
+        ExportSpecifier: 'ExportSpecifier',
         ExpressionStatement: 'ExpressionStatement',
         ForStatement: 'ForStatement',
         ForInStatement: 'ForInStatement',
@@ -73,11 +75,14 @@
         FunctionExpression: 'FunctionExpression',
         Identifier: 'Identifier',
         IfStatement: 'IfStatement',
+        ImportDeclaration: 'ImportDeclaration',
+        ImportSpecifier: 'ImportSpecifier',
         Literal: 'Literal',
         LabeledStatement: 'LabeledStatement',
         LogicalExpression: 'LogicalExpression',
         MemberExpression: 'MemberExpression',
         MethodDefinition: 'MethodDefinition',
+        ModuleDeclaration: 'ModuleDeclaration',
         NewExpression: 'NewExpression',
         ObjectExpression: 'ObjectExpression',
         ObjectPattern: 'ObjectPattern',
@@ -195,6 +200,8 @@
         DirectiveStatement: [],
         DoWhileStatement: ['body', 'test'],
         EmptyStatement: [],
+        ExportDeclaration: ['declaration', 'specifiers'],
+        ExportSpecifier: ['id'],
         ExpressionStatement: ['expression'],
         ForStatement: ['init', 'test', 'update', 'body'],
         ForInStatement: ['left', 'right', 'body'],
@@ -203,11 +210,14 @@
         FunctionExpression: ['id', 'params', 'defaults', 'rest', 'body'],
         Identifier: [],
         IfStatement: ['test', 'consequent', 'alternate'],
+        ImportDeclaration: ['specifiers', 'source'],
+        ImportSpecifier: ['id'],
         Literal: [],
         LabeledStatement: ['label', 'body'],
         LogicalExpression: ['left', 'right'],
         MemberExpression: ['object', 'property'],
         MethodDefinition: ['key', 'value'],
+        ModuleDeclaration: ['source'],
         NewExpression: ['callee', 'arguments'],
         ObjectExpression: ['properties'],
         ObjectPattern: ['properties'],
@@ -408,6 +418,9 @@
                 nodeType = element.wrap || node.type;
                 candidates = VisitorKeys[nodeType];
 
+                if (!candidates) {
+                    console.log(nodeType);
+                }
                 current = candidates.length;
                 while ((current -= 1) >= 0) {
                     key = candidates[current];
